@@ -19,6 +19,13 @@ data LispVal = Atom String
                | String String
                | Bool Bool
 
+parseString :: Parser LispVal
+parseString = do
+  char '"'
+  x <- many (noneOf "\"")
+  char '"'
+  return $ String x
+
 main :: IO ()
 main = do
   (expr:_) <- getArgs
